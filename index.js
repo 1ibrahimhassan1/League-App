@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 var summonerName = ''; //recieved from post request
 
 //connecting to server
-const apiKey = '?api_key=RGAPI-a38c5fb9-f0b4-4ebe-8bde-623fa7e9a5e8';
+const apiKey = '?api_key=RGAPI-c8f56c6c-882d-4c92-8aad-5485e4974539';
 const riotUrl = 'https://na1.api.riotgames.com'
 
 //routes
@@ -26,7 +26,25 @@ app.get('/searchSumm', (req, res) => { //send API request to riot for current ga
   .then((data) => {
     return fetch(riotUrl + getActiveGame + data.id + apiKey)
   })
-  /*purposefully removed code*/
+  .catch((err) => {//if any of the api calls fail, they will be redirected here and this will end the try/catch block
+    res.json({result: 10, summonerInQuestion: summonerName})
+  })
+  .then(res => res.json())
+  .then((data) => {return new Promise((resolve,reject) => {
+        if(data.status){
+          data.status.message === 'Data not found' ? data.result = 10 : data.result = 0;
+          data.summonerInQuestion = summonerName;
+          reject(data); 
+        } else{
+          //since, on success, a status code isn't shipped as part of the
+          //object, we add it here. 10 is a failure, 20 is success.
+          //totally arbitrary numbers, btw
+          data.result = 20;
+          data.summonerInQuestion = summonerName;
+          resolve(data);
+        }
+      }
+    )}
   )
   .then((resolvedData) => {
     console.log('Found ' + summonerName + "'s game! The result code is: " + resolvedData.result)//time accessed with resolvedData.gameLength
