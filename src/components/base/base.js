@@ -23,7 +23,7 @@ class Base extends React.Component{
     }
 
     componentDidMount(){
-        console.log('in mount')
+        console.log('in mout')
         this.setState({
             arrOfInputs: [<input id='0' key='0' className='form-control' type='text' value={this.state.summonerName} onChange={this.updateSummoner} required/>]
         })

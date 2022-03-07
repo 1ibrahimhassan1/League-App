@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 var summonerName = ''; //recieved from post request
 
 //connecting to server
-const apiKey = '?api_key=RGAPI-c8f56c6c-882d-4c92-8aad-5485e4974539';//key needs to be replaced every 24h
+const apiKey = '?api_key=RGAPI-c8f56c6c-882d-4c92-8aad-5485e497453';//key needs to be replaced every 24h
 const riotUrl = 'https://na1.api.riotgames.com'
 
 //routes

@@ -5,7 +5,7 @@ class Result extends React.Component {
         let result = (res) => {
             switch (res){
                 case 0:
-                    return ' was not found'
+                    return ' was not foud'
                 case 10: 
                     return ' is not in game'
                 case 20:
